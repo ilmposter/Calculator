@@ -5,8 +5,19 @@ public class Calculator {
     static String num1;
     static String num2;
     static char operation;
-    static String[] romanNumerals = {"nulla", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
-            "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
+    static String[] romanNumerals = {
+            "nulla", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
+            "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX",
+            "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX",
+            "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL",
+            "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX", "L",
+            "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX",
+            "LXI", "LXII", "LXIII", "LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX", "LXX",
+            "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX", "LXXX",
+            "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX", "XC",
+            "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"
+    };
+
 
     public static void main(String[] args) throws Exception {
         Scanner input = new Scanner(System.in);
@@ -24,7 +35,7 @@ public class Calculator {
         String resInput = input.replaceAll(" ", "");
         String[] operands = resInput.split("[+\\-*/]");
         if(operands.length > 2){
-            return "Формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)";
+            throw new Exception("Формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
         }
         char[] array = resInput.toCharArray();
         boolean hasOperation = false;
@@ -35,7 +46,7 @@ public class Calculator {
             }
         }
         if(!hasOperation){
-            return "Строка не является математической операцией";
+            throw new Exception("Строка не является математической операцией");
         }
         num1 = resInput.substring(0, getIndex(array));
         num2 = resInput.substring(getIndex(array) + 1);
@@ -72,7 +83,7 @@ public class Calculator {
         return foundNum1 && foundNum2;
     }
 
-    public static String getResultOperation(boolean typeNum, String num1, String num2, char operation) throws NumberFormatException {
+    public static String getResultOperation(boolean typeNum, String num1, String num2, char operation) throws Exception {
         int resultNum1 = 0;
         int resultNum2 = 0;
         int res = 0;
@@ -115,7 +126,7 @@ public class Calculator {
                 result = romanNumerals[res];
                 return result;
             } else {
-                return "В римской системе нет отрицательных чисел!";
+                throw new Exception("В римской системе нет отрицательных чисел!");
             }
         }
 
@@ -124,7 +135,7 @@ public class Calculator {
                 resultNum1 = Integer.parseInt(num1);//преобразуем строку в целое число
                 resultNum2 = Integer.parseInt(num2);//преобразуем строку в целое число
             }catch (NumberFormatException e){
-                return "Используются одновременно разные системы счисления!";
+                throw new Exception("Используются одновременно разные системы счисления!");
             }
             if (resultNum1 < 1 || resultNum1 > 10 || resultNum2 < 1 || resultNum2 > 10) {
                 return "Принимаются значения только от 1 до 10";
