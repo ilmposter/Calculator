@@ -122,7 +122,7 @@ public class Calculator {
             } else if (operation == ArithmeticOperations.MULTIPLICATION.operations) {
                 res = resultNum1 * resultNum2;
             }
-            if (res >= 0 && res < romanNumerals.length) {
+            if (res > 0) {
                 result = romanNumerals[res];
                 return result;
             } else {
