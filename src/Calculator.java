@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -95,7 +96,7 @@ public class Calculator {
                 int index = Arrays.asList(romanNumerals).indexOf(numerals);
                 if ((num1.equals(numerals) && (index < 1 || index > 10) ||
                         (num2.equals(numerals) && (index < 1 || index > 10)))) {
-                    return "Принимаются значения только от I до X";
+                    throw new Exception("Принимаются значения только от I до X");
 
                 }
             }
@@ -122,7 +123,7 @@ public class Calculator {
             } else if (operation == ArithmeticOperations.MULTIPLICATION.operations) {
                 res = resultNum1 * resultNum2;
             }
-            if (res >= 0 && res < romanNumerals.length) {
+            if (res > 0) {
                 result = romanNumerals[res];
                 return result;
             } else {
@@ -138,7 +139,7 @@ public class Calculator {
                 throw new Exception("Используются одновременно разные системы счисления!");
             }
             if (resultNum1 < 1 || resultNum1 > 10 || resultNum2 < 1 || resultNum2 > 10) {
-                return "Принимаются значения только от 1 до 10";
+                throw new Exception("Принимаются значения только от 1 до 10");
 
             }
             resultNum1 = Integer.parseInt(num1);//преобразуем строку в целое число
